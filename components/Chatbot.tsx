@@ -56,8 +56,11 @@ const Chatbot: React.FC = () => {
           4. Ton ton est sobre et luxueux.`,
       });
       const response = await model.generateContent(userMessage);
-
-      const responseText = response.text() || "Veuillez cliquer ici pour contacter directement notre équipe.";
+      
+      let responseText = "Veuillez cliquer ici pour contacter directement notre équipe.";
+      if (response?.response?.text) {
+        responseText = response.response.text();
+      }
       setMessages(prev => [...prev, { role: 'assistant', content: responseText }]);
     } catch (error) {
       console.error('Chatbot error:', error);
