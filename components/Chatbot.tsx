@@ -43,7 +43,7 @@ const Chatbot: React.FC = () => {
         throw new Error('VITE_GEMINI_API_KEY environment variable is not set');
       }
       
-      const ai = new GoogleGenerativeAI({ apiKey });
+      const ai = new GoogleGenerativeAI(apiKey);
       const model = ai.getGenerativeModel({ 
         model: 'gemini-1.5-flash',
         systemInstruction: `Tu es l'assistant virtuel de Martin Électricité (01 45 67 89 10).
@@ -57,7 +57,7 @@ const Chatbot: React.FC = () => {
       });
       const response = await model.generateContent(userMessage);
 
-      const responseText = response.response.text() || "Veuillez cliquer ici pour contacter directement notre équipe.";
+      const responseText = response.text() || "Veuillez cliquer ici pour contacter directement notre équipe.";
       setMessages(prev => [...prev, { role: 'assistant', content: responseText }]);
     } catch (error) {
       console.error('Chatbot error:', error);
